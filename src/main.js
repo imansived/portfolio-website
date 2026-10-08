@@ -54,11 +54,11 @@ const PROJECTS = [
   {
     cat: 'AI / Full-Stack',
     name: 'Other Minds',
-    overview: 'Three agents — the Introspector, the Behaviorist, and the Gardener — answer the same question from genuinely different worldviews, and they’re not meant to agree. Conversations persist server-side, turning every session into a queryable corpus rather than something trapped in one browser tab.',
+    overview: '“You ask an AI. It agrees with you. That’s the failure mode this project exists to avoid.” Three agents — the Introspector, the Behaviorist, and the Gardener — examine the same question through deliberately different, sometimes conflicting worldviews instead of converging on consensus.',
     role: 'Solo build — backend, frontend, and agent prompt design.',
-    tools: ['Next.js', 'FastAPI', 'Gemini API', 'SQLite', 'Docker'],
-    challenges: 'Proving the three agents actually think differently, not just vary in tone. Built an automated classifier (`npm run report`) that scores transcripts to check whether the agents stay genuinely distinct instead of converging toward the same voice.',
-    results: 'Shipped two working frontends (Next.js and Streamlit) sharing one backend and one set of agent prompts, so the UIs can’t drift out of sync. Backend deployed on Railway, frontend on Vercel, with the API key kept fully server-side.'
+    tools: ['Python', 'FastAPI', 'Next.js', 'Streamlit', 'Gemini API', 'SQLite', 'Docker'],
+    challenges: 'Proving the three agents actually think differently, not just vary in tone — `npm run report` trains a classifier to guess which agent wrote a line from text alone; scores near 33% mean they’re converging, scores above mean they’re genuinely distinct. A separate detector (`backend/app/epistemics.py`) enforces a “hypothesis is not fact” rule across six claim levels: 100/100 core test cases pass, with 9 documented gaps found through adversarial testing.',
+    results: 'Two frontends (Next.js and Streamlit) share one backend and a single orchestrator (`backend/app/orchestrator.py`), so they can’t drift out of sync. The API key never reaches the browser — requests are proxied server-side — with the backend on Railway and the frontend on Vercel.'
   },
   {
     cat: 'Category',
@@ -105,14 +105,7 @@ function openModal(idx){
   document.getElementById('modalChallenges').textContent = p.challenges;
   document.getElementById('modalResults').textContent = p.results;
 
-  const toolsWrap = document.getElementById('modalTools');
-  toolsWrap.innerHTML = '';
-  p.tools.forEach(t => {
-    const span = document.createElement('span');
-    span.className = 'pill';
-    span.textContent = t;
-    toolsWrap.appendChild(span);
-  });
+  document.getElementById('modalTools').textContent = p.tools.join(' · ');
 
   lastFocused = document.activeElement;
   backdrop.classList.add('open');
@@ -139,6 +132,35 @@ backdrop.addEventListener('click', (e) => { if (e.target === backdrop) closeModa
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && backdrop.classList.contains('open')) closeModal();
 });
+
+// ---- Project demo videos: muted autoplay, click-to-unmute, pause when off-screen ----
+document.querySelectorAll('.video-mute-btn').forEach(btn => {
+  const video = btn.closest('.project-art')?.querySelector('video');
+  if (!video) return;
+  const setState = () => {
+    btn.classList.toggle('is-unmuted', !video.muted);
+    btn.setAttribute('aria-pressed', String(!video.muted));
+    btn.setAttribute('aria-label', video.muted ? 'Unmute video' : 'Mute video');
+  };
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    video.muted = !video.muted;
+    setState();
+  });
+  btn.addEventListener('keydown', (e) => e.stopPropagation());
+  setState();
+});
+
+const projectVideos = document.querySelectorAll('.project-video');
+if (projectVideos.length) {
+  const videoIo = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.play().catch(() => {});
+      else entry.target.pause();
+    });
+  }, { threshold: 0.2 });
+  projectVideos.forEach(v => videoIo.observe(v));
+}
 
 // ---- Magnetic primary CTA (kept — everything else quieted down) ----
 if (!reduceMotion && canHover) {

@@ -296,17 +296,33 @@ em{
   background:radial-gradient(circle, rgba(94,165,144,0.4) 0%, transparent 70%);
   transition:transform 0.6s var(--ease);
 }
-.project-art img{
+.project-art img, .project-art video{
   width:100%; height:100%;
-  object-fit:cover;
   display:block;
   position:relative; z-index:1;
   transition:transform 0.6s var(--ease);
 }
+.project-art img{ object-fit:cover; }
+.project-art video{ object-fit:contain; }
 .project:hover .project-art{ box-shadow:0 28px 64px -20px var(--accent-glow); }
 .project:hover .project-art::after{ transform:scale(1.14); }
-.project:hover .project-art img{ transform:scale(1.04); }
+.project:hover .project-art img, .project:hover .project-art video{ transform:scale(1.04); }
 .art-placeholder{ font-family:'Fraunces',serif; font-style:italic; font-size:1rem; color:var(--text-muted); position:relative; z-index:1; }
+
+.video-mute-btn{
+  position:absolute; right:16px; bottom:16px; z-index:2;
+  width:38px; height:38px; border-radius:50%;
+  background:var(--card-bg); color:var(--ink);
+  border:none; padding:0; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 6px 18px rgba(21,51,44,0.22);
+  transition:background 0.25s ease, color 0.25s ease, transform 0.3s var(--ease);
+}
+.video-mute-btn:hover{ background:var(--accent); color:#fff; transform:scale(1.06); }
+.video-mute-btn:focus-visible{ outline:2px solid var(--accent-deep); outline-offset:2px; }
+.video-mute-btn .icon-unmuted{ display:none; }
+.video-mute-btn.is-unmuted .icon-muted{ display:none; }
+.video-mute-btn.is-unmuted .icon-unmuted{ display:block; }
 
 .project-meta{ margin-top:28px; }
 .project-index{
@@ -421,17 +437,11 @@ em{
 .modal-section p:not(.eyebrow){
   color:var(--text-muted); line-height:1.8; font-size:0.96rem; font-weight:300; margin:0;
 }
-.modal-section .pills{ margin-top:2px; }
+.modal-tools{
+  color:var(--ink-soft); line-height:1.8; font-size:0.96rem; font-weight:500; margin:0;
+}
 @media (prefers-reduced-motion:reduce){
   .modal-backdrop, .modal-panel, .modal-close{ transition:none; }
-}
-.pills{ display:flex; flex-wrap:wrap; gap:10px; }
-.pill{
-  padding:10px 20px;
-  border-radius:var(--radius-pill);
-  border:1.2px solid var(--line);
-  background:var(--card-bg);
-  font-size:0.86rem; font-weight:500; color:var(--ink-soft);
 }
 
 /* ---------- Skills — typography, not pills ---------- */
