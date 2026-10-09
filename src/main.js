@@ -61,13 +61,13 @@ const PROJECTS = [
     results: 'Two frontends (Next.js and Streamlit) share one backend and a single orchestrator (`backend/app/orchestrator.py`), so they can’t drift out of sync. The API key never reaches the browser — requests are proxied server-side — with the backend on Railway and the frontend on Vercel.'
   },
   {
-    cat: 'Category',
-    name: 'Project Name Two',
-    overview: 'Placeholder overview — one or two sentences on what this project is and why you built it.',
-    role: 'Placeholder role — e.g. Sole designer & developer, or your part in a team project.',
-    tools: ['Python', 'Pandas', 'Matplotlib'],
-    challenges: 'Placeholder — the trickiest problem you ran into and how you approached it.',
-    results: 'Placeholder — the outcome, what you learned, or impact it had.'
+    cat: 'Game / AI',
+    name: 'Branch Wars',
+    overview: '“A 2048-style tile-merging game themed around the Indian engineering ‘branch wars’ — merge your way from Civil up through Mech, Instru, E&TC, Robotics, AI&DS, IT, and finally CS.” Merge two CS tiles and “placement season” triggers, revealing your final outcome.',
+    role: 'Solo build — game design, mechanics, and the AI solver.',
+    tools: ['React', 'Vite', 'Web Audio API', 'Vitest'],
+    challenges: 'Building an AI solver using expectimax search — the same algorithm family as classic 2048 AIs. Max nodes evaluate all four directional moves while chance nodes average outcomes across possible tile spawns, with search depth adapting to board density. The evaluator balances four heuristics: empty-cell count, monotonicity, smoothness, and corner-anchoring.',
+    results: 'Kept game and AI logic framework-agnostic — `game/` and `ai/` have zero React dependencies, with all state centralized in one `useGameState.js` hook. Sound effects are fully synthesized through the Web Audio API rather than loaded audio files.'
   },
   {
     cat: 'Category',
