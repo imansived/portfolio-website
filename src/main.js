@@ -54,6 +54,9 @@ const PROJECTS = [
   {
     cat: 'AI / Full-Stack',
     name: 'Other Minds',
+    img: '/projects/other-minds.png',
+    live: 'https://other-minds.vercel.app',
+    github: 'https://github.com/imansived/Other-Minds',
     overview: '“You ask an AI. It agrees with you. That’s the failure mode this project exists to avoid.” Three agents — the Introspector, the Behaviorist, and the Gardener — examine the same question through deliberately different, sometimes conflicting worldviews instead of converging on consensus.',
     role: 'Solo build — backend, frontend, and agent prompt design.',
     tools: ['Python', 'FastAPI', 'Next.js', 'Streamlit', 'Gemini API', 'SQLite', 'Docker'],
@@ -63,6 +66,9 @@ const PROJECTS = [
   {
     cat: 'Game / AI',
     name: 'Branch Wars',
+    img: '/projects/branch-wars.png',
+    live: 'https://branch-wars.vercel.app',
+    github: 'https://github.com/imansived/branch-wars',
     overview: '“A 2048-style tile-merging game themed around the Indian engineering ‘branch wars’ — merge your way from Civil up through Mech, Instru, E&TC, Robotics, AI&DS, IT, and finally CS.” Merge two CS tiles and “placement season” triggers, revealing your final outcome.',
     role: 'Solo build — game design, mechanics, and the AI solver.',
     tools: ['React', 'Vite', 'Web Audio API', 'Vitest'],
@@ -106,6 +112,44 @@ function openModal(idx){
   document.getElementById('modalResults').textContent = p.results;
 
   document.getElementById('modalTools').textContent = p.tools.join(' · ');
+
+  const artImg = document.getElementById('modalArtImg');
+  const artPlaceholder = document.getElementById('modalArtPlaceholder');
+  const modalArt = document.getElementById('modalArt');
+  if (p.img) {
+    const sizeToImage = () => {
+      modalArt.style.aspectRatio = `${artImg.naturalWidth} / ${artImg.naturalHeight}`;
+      modalArt.style.height = 'auto';
+    };
+    if (artImg.src !== location.origin + p.img) {
+      artImg.onload = sizeToImage;
+      artImg.src = p.img;
+    } else if (artImg.complete) {
+      sizeToImage();
+    }
+    artImg.alt = p.name + ' preview';
+    artImg.style.display = 'block';
+    artPlaceholder.style.display = 'none';
+  } else {
+    artImg.style.display = 'none';
+    artImg.removeAttribute('src');
+    artPlaceholder.style.display = 'block';
+    modalArt.style.aspectRatio = '';
+    modalArt.style.height = '';
+  }
+
+  const linksWrap = document.getElementById('modalLinks');
+  linksWrap.innerHTML = '';
+  [['Live Site', p.live], ['GitHub', p.github]].forEach(([label, url]) => {
+    if (!url) return;
+    const a = document.createElement('a');
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.innerHTML = `${label} <span aria-hidden="true">↗</span>`;
+    linksWrap.appendChild(a);
+  });
+  linksWrap.style.display = (p.live || p.github) ? 'flex' : 'none';
 
   lastFocused = document.activeElement;
   backdrop.classList.add('open');

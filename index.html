@@ -65,7 +65,7 @@
         </div>
         <div class="about-copy reveal">
           <h2>Hi, I'm <em>Mansi Vedpathak.</em></h2>
-          <p>I get drawn to questions, odd observations, and problems that don't quite make sense. Curiosity is usually where things start — I like following it far enough to understand, experiment, and sometimes turn it into something tangible.</p>
+          <p>I get drawn to questions, odd observations, and problems that don't quite make sense. Curiosity is usually where things start, and I like to follow it far enough to understand, experiment, and sometimes turn it into something tangible.</p>
           <p>I study AI &amp; Data Science, but I don't keep my interests in one box. My work moves between technology, ideas, data, design, and whatever else feels worth exploring.</p>
           <p class="pull-quote">I'm less interested in having a fixed direction than in finding interesting directions to follow.</p>
         </div>
@@ -120,6 +120,7 @@
           </div>
         </article>
 
+        <!-- Project three and four — commented out until there's real work to show here.
         <article class="project reveal" data-project="2" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Open details for Project Name Three">
           <div class="project-inner">
             <div class="project-art"><span class="art-placeholder">Project Image</span></div>
@@ -141,6 +142,7 @@
             </div>
           </div>
         </article>
+        -->
       </div>
     </div>
   </section>
@@ -151,10 +153,14 @@
       <button class="modal-close" id="modalClose" aria-label="Close project details">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
       </button>
-      <div class="modal-art"><span class="art-placeholder">Project Image</span></div>
+      <div class="modal-art" id="modalArt">
+        <img class="modal-art-img" id="modalArtImg" alt="" style="display:none;">
+        <span class="art-placeholder" id="modalArtPlaceholder">Project Image</span>
+      </div>
       <div class="modal-body">
         <p class="badge" id="modalCat">Category</p>
         <h2 id="modalTitle">Project Name</h2>
+        <div class="modal-links" id="modalLinks"></div>
 
         <div class="modal-section">
           <p class="eyebrow">Overview</p>
@@ -193,25 +199,41 @@
       <div class="skill-group reveal">
         <div class="skill-group-head">
           <span class="skill-num">01</span>
-          <h3 class="skill-cat">Design</h3>
+          <h3 class="skill-cat">Machine Learning &amp; Data Science</h3>
         </div>
-        <p class="skill-list">Figma · Photoshop · Illustrator · After Effects</p>
+        <p class="skill-list">Python · NumPy · Pandas · Scikit-learn · Matplotlib · Seaborn · Feature Engineering · Model Evaluation · Statistical Analysis</p>
       </div>
 
       <div class="skill-group reveal">
         <div class="skill-group-head">
           <span class="skill-num">02</span>
-          <h3 class="skill-cat">Build</h3>
+          <h3 class="skill-cat">Generative AI</h3>
         </div>
-        <p class="skill-list">HTML / CSS · JavaScript · React · Node.js</p>
+        <p class="skill-list">OpenAI · Anthropic Claude · LangChain · Microsoft AutoGen · RAG Systems · Embeddings · Vector Search (Pinecone, HNSW)</p>
       </div>
 
       <div class="skill-group reveal">
         <div class="skill-group-head">
           <span class="skill-num">03</span>
-          <h3 class="skill-cat">Other</h3>
+          <h3 class="skill-cat">Backend</h3>
         </div>
-        <p class="skill-list">Python · Data Viz · Branding</p>
+        <p class="skill-list">Python · FastAPI · Node.js · REST APIs · GraphQL</p>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-head">
+          <span class="skill-num">04</span>
+          <h3 class="skill-cat">Frontend</h3>
+        </div>
+        <p class="skill-list">React · Next.js · TypeScript · Tailwind CSS · Redux</p>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-head">
+          <span class="skill-num">05</span>
+          <h3 class="skill-cat">Databases &amp; Cloud</h3>
+        </div>
+        <p class="skill-list">PostgreSQL · MySQL · MongoDB · Redis · BigQuery · AWS · Docker · Vercel · GitHub Actions</p>
       </div>
     </div>
   </section>
@@ -265,7 +287,7 @@
       <span class="contact-arrow" aria-hidden="true">↗</span>
       <p class="contact-note">Have an idea, a project, or simply want to connect? I'd love to hear from you.</p>
       <div class="contact-actions">
-        <a class="btn btn-solid" href="mailto:hello@example.com"><span class="btn-dot"></span> Email Me</a>
+        <a class="btn btn-solid" href="mailto:mansivedpathak28@gmail.com"><span class="btn-dot"></span> Email Me</a>
         <a class="btn btn-outline" href="#">Download Resume</a>
         <div class="socials">
           <a href="#">LinkedIn</a>
