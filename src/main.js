@@ -52,16 +52,16 @@ updateProgress();
 // ---- Project data (placeholder — swap in real case studies) ----
 const PROJECTS = [
   {
-    cat: 'AI / Full-Stack',
+    cat: 'AI / Full Stack',
     name: 'Other Minds',
-    img: '/projects/other-minds.png',
+    img: '/projects/other-minds-modal.png',
     live: 'https://other-minds.vercel.app',
     github: 'https://github.com/imansived/Other-Minds',
     overview: '“You ask an AI. It agrees with you. That’s the failure mode this project exists to avoid.” Three agents — the Introspector, the Behaviorist, and the Gardener — examine the same question through deliberately different, sometimes conflicting worldviews instead of converging on consensus.',
     role: 'Solo build — backend, frontend, and agent prompt design.',
     tools: ['Python', 'FastAPI', 'Next.js', 'Streamlit', 'Gemini API', 'SQLite', 'Docker'],
     challenges: 'Proving the three agents actually think differently, not just vary in tone — `npm run report` trains a classifier to guess which agent wrote a line from text alone; scores near 33% mean they’re converging, scores above mean they’re genuinely distinct. A separate detector (`backend/app/epistemics.py`) enforces a “hypothesis is not fact” rule across six claim levels: 100/100 core test cases pass, with 9 documented gaps found through adversarial testing.',
-    results: 'Two frontends (Next.js and Streamlit) share one backend and a single orchestrator (`backend/app/orchestrator.py`), so they can’t drift out of sync. The API key never reaches the browser — requests are proxied server-side — with the backend on Railway and the frontend on Vercel.'
+    results: 'Two frontends (Next.js and Streamlit) share one backend and a single orchestrator (`backend/app/orchestrator.py`), so they can’t drift out of sync. The API key never reaches the browser — requests are proxied server side — with the backend on Railway and the frontend on Vercel.'
   },
   {
     cat: 'Game / AI',
@@ -69,20 +69,22 @@ const PROJECTS = [
     img: '/projects/branch-wars.png',
     live: 'https://branch-wars.vercel.app',
     github: 'https://github.com/imansived/branch-wars',
-    overview: '“A 2048-style tile-merging game themed around the Indian engineering ‘branch wars’ — merge your way from Civil up through Mech, Instru, E&TC, Robotics, AI&DS, IT, and finally CS.” Merge two CS tiles and “placement season” triggers, revealing your final outcome.',
+    overview: '“A 2048 style tile merging game themed around the Indian engineering ‘branch wars’ — merge your way from Civil up through Mech, Instru, E&TC, Robotics, AI&DS, IT, and finally CS.” Merge two CS tiles and “placement season” triggers, revealing your final outcome.',
     role: 'Solo build — game design, mechanics, and the AI solver.',
     tools: ['React', 'Vite', 'Web Audio API', 'Vitest'],
-    challenges: 'Building an AI solver using expectimax search — the same algorithm family as classic 2048 AIs. Max nodes evaluate all four directional moves while chance nodes average outcomes across possible tile spawns, with search depth adapting to board density. The evaluator balances four heuristics: empty-cell count, monotonicity, smoothness, and corner-anchoring.',
-    results: 'Kept game and AI logic framework-agnostic — `game/` and `ai/` have zero React dependencies, with all state centralized in one `useGameState.js` hook. Sound effects are fully synthesized through the Web Audio API rather than loaded audio files.'
+    challenges: 'Building an AI solver using expectimax search — the same algorithm family as classic 2048 AIs. Max nodes evaluate all four directional moves while chance nodes average outcomes across possible tile spawns, with search depth adapting to board density. The evaluator balances four heuristics: empty cell count, monotonicity, smoothness, and corner anchoring.',
+    results: 'Kept game and AI logic framework agnostic — `game/` and `ai/` have zero React dependencies, with all state centralized in one `useGameState.js` hook. Sound effects are fully synthesized through the Web Audio API rather than loaded audio files.'
   },
   {
-    cat: 'Category',
-    name: 'Project Name Three',
-    overview: 'Placeholder overview — one or two sentences on what this project is and why you built it.',
-    role: 'Placeholder role — e.g. Sole designer & developer, or your part in a team project.',
-    tools: ['Illustrator', 'After Effects'],
-    challenges: 'Placeholder — the trickiest problem you ran into and how you approached it.',
-    results: 'Placeholder — the outcome, what you learned, or impact it had.'
+    cat: 'Security / ML',
+    name: 'AegisFlow',
+    img: '/projects/aegisflow-dashboard.png',
+    github: 'https://github.com/imansived/aegisflow',
+    overview: '“Are several small deviations happening together on the same device?” — the one question no single signal can answer alone. AegisFlow scores every connected device across four signals (location, network, device health, proximity) and raises an alert only when enough of them move together at once, explaining exactly which signals contributed and why.',
+    role: 'Solo build — simulator, detection pipeline, dashboard, and the full research evaluation.',
+    tools: ['Python', 'FastAPI', 'React', 'TypeScript', 'Scikit-learn', 'Redis', 'Docker'],
+    challenges: 'Proving fusion actually helps rather than assuming it does — a pre registered evaluation on 1,331 held out episodes showed fusing signals beats any single detector firing by +0.43 recall, but its edge over the best individual detector (network) wasn’t clearly shown. Rather than round that up, the dashboard reports it plainly: a Normal / Anomalous / Degraded state per device and a “why it was flagged” panel showing exactly which signals contributed.',
+    results: 'Found that a missing signal was being silently read as “normal” — recall on weak attacks fell from 0.87 to 0.18 once the network signal dropped out. A fix scoring each device only against thresholds fit for the signals it still has recovered most of that loss across 12 missing signal conditions, confirmed on 10 fresh seeds. Backed by 233 backend tests and 66 frontend tests, with real world validation against IoT traffic documented as an open limitation rather than left unstated.'
   },
   {
     cat: 'Category',
